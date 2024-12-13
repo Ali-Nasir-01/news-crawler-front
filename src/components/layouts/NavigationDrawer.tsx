@@ -16,7 +16,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import { NavLink } from "react-router";
 
 const drawerWidth = 240;
 
@@ -114,6 +114,19 @@ const NavigtationDrawer: React.FC<{children: React.ReactNode}> = ({children}) =>
     setOpen(false);
   };
 
+  const items = [
+    {
+      iconComponent: InboxIcon,
+      text: 'کاربران',
+      link: '/panel/users'
+    },
+    {
+      iconComponent: InboxIcon,
+      text: 'اخبار',
+      link: '/panel/news'
+    }
+  ]
+
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar position="fixed" open={open}>
@@ -145,8 +158,9 @@ const NavigtationDrawer: React.FC<{children: React.ReactNode}> = ({children}) =>
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+          {items.map((item, index) => (
+            <ListItem key={index} disablePadding sx={{ display: 'block' }}>
+              <NavLink to={item.link}>
               <ListItemButton
                 sx={[
                   {
@@ -177,10 +191,10 @@ const NavigtationDrawer: React.FC<{children: React.ReactNode}> = ({children}) =>
                         },
                   ]}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {<item.iconComponent></item.iconComponent>}
                 </ListItemIcon>
                 <ListItemText
-                  primary={text}
+                  primary={item.text}
                   sx={[
                     open
                       ? {
@@ -192,6 +206,7 @@ const NavigtationDrawer: React.FC<{children: React.ReactNode}> = ({children}) =>
                   ]}
                 />
               </ListItemButton>
+              </NavLink>
             </ListItem>
           ))}
         </List>
