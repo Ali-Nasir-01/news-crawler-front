@@ -1,7 +1,9 @@
+import AppBar from "@/components/layouts/AppBar";
+
 const DefaultLayout: React.FC<{children: React.ReactNode}> = ({children}) => {
     return(
         <>
-            <header>This is default header</header>
+            <AppBar />
             <main>
                 {children}
             </main>
