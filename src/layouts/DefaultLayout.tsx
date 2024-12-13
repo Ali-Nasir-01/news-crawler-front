@@ -1,15 +1,13 @@
-import AppBar from "@/components/layouts/AppBar";
+import NavigationDrawer from "@/components/layouts/NavigationDrawer";
 
 const DefaultLayout: React.FC<{children: React.ReactNode}> = ({children}) => {
     return(
         <>
-            <AppBar />
-            <main>
-                {children}
-            </main>
-            <footer className="">
-                This is default footer
-            </footer>
+            <NavigationDrawer>
+                <main>
+                    {children}
+                </main>
+            </NavigationDrawer>
         </>
     )
 }

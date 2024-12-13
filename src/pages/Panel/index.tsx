@@ -1,6 +1,10 @@
 const HomePage = () => {
   return (
-    <div>index</div>
+    <div>
+      <h2>
+        به سامانه خزشگر و جمع‌آوری اخبار خوش آمدید.
+      </h2>
+    </div>
   )
 }
 
