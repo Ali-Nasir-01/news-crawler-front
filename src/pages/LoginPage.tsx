@@ -1,51 +1,54 @@
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({
+    username: "",
+    password: "",
+  });
 
   const handleLogin = () => {
     // Handle login logic here
-    console.log("Email:", email);
-    console.log("Password:", password);
+    console.log(form);
   };
 
   return (
-    <Box
-      display='flex'
-      flexDirection='column'
-      alignItems='center'
-      justifyContent='center'
-      minHeight='100vh'
-    >
-      <Typography variant='h4' gutterBottom>
-        Login
+    <div style={{ textAlign: "center" }}>
+      <Typography variant='h5' gutterBottom>
+        ورود به سامانه جمع‌آوری اخبار
       </Typography>
       <TextField
-        label='Email'
+        label='نام کاربری'
         variant='outlined'
         margin='normal'
         fullWidth
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={form.username}
+        dir='ltr'
+        onChange={(e) => setForm((v) => ({ ...v, username: e.target.value }))}
       />
       <TextField
-        label='Password'
+        label='رمزعبور'
         type='password'
         variant='outlined'
         margin='normal'
         fullWidth
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        dir='ltr'
+        value={form.password}
+        onChange={(e) => setForm((v) => ({ ...v, password: e.target.value }))}
       />
-      <Button variant='contained' color='primary' onClick={handleLogin}>
-        Login
+      <Button
+        variant='contained'
+        color='primary'
+        sx={{ mt: 2 }}
+        size='large'
+        fullWidth
+        onClick={handleLogin}
+      >
+        ورود
       </Button>
-    </Box>
+    </div>
   );
 };
 
