@@ -3,14 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "@/features/auth/authSlice";
 import { RootState, AppDispatch } from "@/store";
 import { Button, TextField, Typography } from "@mui/material";
+import { useNavigate } from "react-router";
 
 const LoginPage = () => {
   const [form, setForm] = useState({ username: "", password: "" });
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error } = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
 
   const handleLogin = () => {
-    dispatch(login({ username: form.username, password: form.password }));
+    dispatch(login({ username: form.username, password: form.password })).then(
+      () => {
+        navigate("/panel");
+      }
+    );
   };
 
   return (
