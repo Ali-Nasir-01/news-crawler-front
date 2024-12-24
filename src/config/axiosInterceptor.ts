@@ -1,4 +1,5 @@
 import axios from "axios";
+import { navigateToLogin } from "@/utils/navigation";
 
 const axiosInstance = axios.create({
   baseURL: "/api",
@@ -24,7 +25,7 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401) {
-      window.location.href = "/login";
+      navigateToLogin();
     }
     return Promise.reject(error);
   }

@@ -1,23 +1,22 @@
 import { useState } from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "@/features/auth/authSlice";
+import { RootState, AppDispatch } from "@/store";
+import { Button, TextField, Typography } from "@mui/material";
 
 const LoginPage = () => {
-  const [form, setForm] = useState({
-    username: "",
-    password: "",
-  });
+  const [form, setForm] = useState({ username: "", password: "" });
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading, error } = useSelector((state: RootState) => state.auth);
 
   const handleLogin = () => {
-    // Handle login logic here
-    console.log(form);
+    dispatch(login({ username: form.username, password: form.password }));
   };
 
   return (
     <div style={{ textAlign: "center" }}>
       <Typography variant='h5' gutterBottom>
-        ورود به سامانه جمع‌آوری اخبار
+        سامانه جمع‌آوری اخبار
       </Typography>
       <TextField
         label='نام کاربری'
@@ -45,9 +44,11 @@ const LoginPage = () => {
         size='large'
         fullWidth
         onClick={handleLogin}
+        disabled={loading}
       >
         ورود
       </Button>
+      {error && <Typography color='error'>{error}</Typography>}
     </div>
   );
 };
