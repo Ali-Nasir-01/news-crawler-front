@@ -1,14 +1,12 @@
-import Button from "@mui/material/Button"
+import Button from "@mui/material/Button";
 
 const LoginPage = () => {
   return (
     <>
-        <h3>
-            سیلام
-        </h3>
-        <Button variant="contained">Hello world</Button>
+      <h3>Hello</h3>
+      <Button variant='contained'>Hello world</Button>
     </>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;
