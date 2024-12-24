@@ -1,13 +1,30 @@
-const AuthLayout: React.FC<{children: React.ReactNode}> = ({children}) => {
-    return(
-        <>
-            <main className="absolute w-full h-full flex items-center justify-center bg-gray-200">
-                <div className="bg-white rounded-2xl w-[50%] p-6">
-                    {children}
-                </div>
-            </main>
-        </>
-    )
-}
+const AuthLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return (
+    <>
+      <main
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#e2e8f0",
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "white",
+            borderRadius: "16px",
+            width: "500px",
+            padding: "24px",
+          }}
+        >
+          {children}
+        </div>
+      </main>
+    </>
+  );
+};
 
 export default AuthLayout;
