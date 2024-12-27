@@ -54,6 +54,16 @@ const LoginPage = () => {
       >
         ورود
       </Button>
+      <Typography variant='body2' sx={{ mt: 2 }}>
+        حساب کاربری ندارید؟{" "}
+        <Button
+          color='primary'
+          onClick={() => navigate("/auth/register")}
+          sx={{ textTransform: "none" }}
+        >
+          ثبت‌نام
+        </Button>
+      </Typography>
       {error && <Typography color='error'>{error}</Typography>}
     </div>
   );
