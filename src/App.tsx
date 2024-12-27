@@ -8,9 +8,10 @@ import {
 import AuthLayout from "./layouts/AuthLayout";
 import DefaultLayout from "./layouts/DefaultLayout";
 import HomePage from "./pages/Panel";
-import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/auth/LoginPage";
 import NewsPage from "./pages/Panel/News";
 import axiosInstance from "./config/axiosInterceptor"; // Import the axios instance
+import RegisterPage from "./pages/auth/RegisterPage";
 
 const App: React.FC = () => {
   React.useEffect(() => {
@@ -27,12 +28,20 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route index element={<Navigate to='/login' />} />
+        <Route index element={<Navigate to='/auth/login' />} />
         <Route
-          path='/login'
+          path='/auth/login'
           element={
             <AuthLayout>
               <LoginPage />
+            </AuthLayout>
+          }
+        />
+        <Route
+          path='/auth/register'
+          element={
+            <AuthLayout>
+              <RegisterPage />
             </AuthLayout>
           }
         />
