@@ -16,12 +16,13 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import { NavLink, useNavigate } from "react-router";
 import { Menu, MenuItem } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { logout } from "@/features/auth/authSlice";
+import GroupIcon from "@mui/icons-material/Group";
+import NewspaperIcon from "@mui/icons-material/Newspaper";
 
 const drawerWidth = 240;
 
@@ -139,12 +140,12 @@ const NavigtationDrawer: React.FC<{ children: React.ReactNode }> = ({
 
   const items = [
     {
-      iconComponent: InboxIcon,
+      iconComponent: GroupIcon,
       text: "کاربران",
       link: "/panel/users",
     },
     {
-      iconComponent: InboxIcon,
+      iconComponent: NewspaperIcon,
       text: "اخبار",
       link: "/panel/news",
     },
