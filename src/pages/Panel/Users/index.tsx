@@ -1,52 +1,85 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "@/config/axiosInterceptor";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+} from "@mui/material";
 
 interface User {
-  id: number;
-  name: string;
+  id: string;
+  username: string;
   email: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-const UsersPage: React.FC = () => {
+const Users: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axiosInstance.get("/users");
+      setUsers(response.data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+
+  const deleteUser = async (id: string) => {
+    try {
+      await axiosInstance.delete(`/users/${id}`);
+      fetchUsers(); // Refetch users after deletion
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get("/api/users");
-        setUsers(response.data);
-      } catch {
-        setError("Failed to fetch users");
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchUsers();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
-
   return (
-    <div>
-      <h1>Users</h1>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>
-            {user.name} ({user.email})
-          </li>
-        ))}
-      </ul>
-    </div>
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>ID</TableCell>
+            <TableCell>Username</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Created At</TableCell>
+            <TableCell>Updated At</TableCell>
+            <TableCell>Actions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {users.map((user) => (
+            <TableRow key={user.id}>
+              <TableCell>{user.id}</TableCell>
+              <TableCell>{user.username}</TableCell>
+              <TableCell>{user.email}</TableCell>
+              <TableCell>{new Date(user.createdAt).toLocaleString()}</TableCell>
+              <TableCell>{new Date(user.updatedAt).toLocaleString()}</TableCell>
+              <TableCell>
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  onClick={() => deleteUser(user.id)}
+                >
+                  Delete
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
-export default UsersPage;
+export default Users;

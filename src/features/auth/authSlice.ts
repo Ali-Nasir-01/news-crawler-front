@@ -79,6 +79,7 @@ export const register = createAsyncThunk(
 export const logout = createAsyncThunk("auth/logout", async () => {
   localStorage.removeItem("user");
   localStorage.removeItem("token");
+  axiosInstance.defaults.headers.common["Authorization"] = "";
   return;
 });
 
@@ -105,6 +106,9 @@ const authSlice = createSlice({
           state.isLogin = true;
           localStorage.setItem("user", JSON.stringify(action.payload.user));
           localStorage.setItem("token", action.payload.token);
+          axiosInstance.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${action.payload.token}`;
         }
       )
       .addCase(login.rejected, (state, action: PayloadAction<any>) => {
