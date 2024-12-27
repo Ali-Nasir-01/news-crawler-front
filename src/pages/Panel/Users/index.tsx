@@ -49,12 +49,12 @@ const Users: React.FC = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>Username</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Created At</TableCell>
-            <TableCell>Updated At</TableCell>
-            <TableCell>Actions</TableCell>
+            <TableCell>شناسه</TableCell>
+            <TableCell>نام کاربری</TableCell>
+            <TableCell>ایمیل</TableCell>
+            <TableCell>تاریخ ایجاد</TableCell>
+            <TableCell>تاریخ بروزرسانی</TableCell>
+            <TableCell>عملیات‌ها</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
