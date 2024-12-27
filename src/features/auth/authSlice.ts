@@ -18,7 +18,7 @@ const initialState: AuthState = {
   error: null,
 };
 
-// Async thunks for login, register, and logout
+// Async thunks for login and register
 export const login = createAsyncThunk(
   "auth/login",
   async (
@@ -66,20 +66,12 @@ export const register = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk(
-  "auth/logout",
-  async (_, { rejectWithValue }) => {
-    try {
-      await axiosInstance.post("/auth/logout");
-      return;
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        return rejectWithValue(error.response.data);
-      }
-      return rejectWithValue("An unknown error occurred");
-    }
-  }
-);
+// Synchronous action for logout
+export const logout = createAsyncThunk("auth/logout", async () => {
+  localStorage.removeItem("user");
+  localStorage.removeItem("token");
+  return;
+});
 
 const authSlice = createSlice({
   name: "auth",
@@ -114,29 +106,25 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(register.fulfilled, (state) => {
-        state.loading = false;
-        state.isLogin = false;
-      })
+      .addCase(
+        register.fulfilled,
+        (state, action: PayloadAction<{ user: string; token: string }>) => {
+          state.loading = false;
+          state.user = action.payload.user;
+          state.token = action.payload.token;
+          state.isLogin = true;
+          localStorage.setItem("user", action.payload.user);
+          localStorage.setItem("token", action.payload.token);
+        }
+      )
       .addCase(register.rejected, (state, action: PayloadAction<any>) => {
         state.loading = false;
-        state.error = action.payload.message;
-      })
-      .addCase(logout.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.error = action.payload;
       })
       .addCase(logout.fulfilled, (state) => {
-        state.loading = false;
         state.user = null;
         state.token = null;
         state.isLogin = false;
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-      })
-      .addCase(logout.rejected, (state, action: PayloadAction<any>) => {
-        state.loading = false;
-        state.error = action.payload;
       });
   },
 });
