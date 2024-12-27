@@ -12,6 +12,7 @@ import LoginPage from "./pages/auth/LoginPage";
 import NewsPage from "./pages/Panel/News";
 import axiosInstance from "./config/axiosInterceptor"; // Import the axios instance
 import RegisterPage from "./pages/auth/RegisterPage";
+import UsersPage from "./pages/Panel/Users";
 
 const App: React.FC = () => {
   React.useEffect(() => {
@@ -50,6 +51,14 @@ const App: React.FC = () => {
           element={
             <DefaultLayout>
               <HomePage />
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path='/panel/users'
+          element={
+            <DefaultLayout>
+              <UsersPage />
             </DefaultLayout>
           }
         />

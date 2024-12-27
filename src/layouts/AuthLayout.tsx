@@ -1,4 +1,8 @@
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
+
 const AuthLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  useAuthRedirect();
+
   return (
     <>
       <main
