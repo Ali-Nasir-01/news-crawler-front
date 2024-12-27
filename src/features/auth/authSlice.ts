@@ -2,8 +2,15 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "@/config/axiosInterceptor";
 import axios from "axios";
 
+interface IUser {
+  username: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+}
 interface AuthState {
-  user: string | null;
+  user: IUser | null;
   token: string | null;
   isLogin: boolean;
   loading: boolean;
@@ -11,7 +18,7 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  user: localStorage.getItem("user"),
+  user: localStorage.getItem("user") as IUser | null,
   token: localStorage.getItem("token"),
   isLogin: !!localStorage.getItem("token"),
   loading: false,
@@ -89,7 +96,7 @@ const authSlice = createSlice({
       })
       .addCase(
         login.fulfilled,
-        (state, action: PayloadAction<{ user: string; token: string }>) => {
+        (state, action: PayloadAction<{ user: IUser; token: string }>) => {
           state.loading = false;
           state.user = action.payload.user;
           state.token = action.payload.token;
@@ -106,17 +113,10 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(
-        register.fulfilled,
-        (state, action: PayloadAction<{ user: string; token: string }>) => {
-          state.loading = false;
-          state.user = action.payload.user;
-          state.token = action.payload.token;
-          state.isLogin = true;
-          localStorage.setItem("user", action.payload.user);
-          localStorage.setItem("token", action.payload.token);
-        }
-      )
+      .addCase(register.fulfilled, (state) => {
+        state.loading = false;
+        state.isLogin = true;
+      })
       .addCase(register.rejected, (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.error = action.payload;

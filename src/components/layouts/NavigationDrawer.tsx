@@ -19,8 +19,8 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import { NavLink, useNavigate } from "react-router";
 import { Menu, MenuItem } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store";
 import { logout } from "@/features/auth/authSlice";
 
 const drawerWidth = 240;
@@ -116,6 +116,7 @@ const NavigtationDrawer: React.FC<{ children: React.ReactNode }> = ({
   const isMenuOpen = Boolean(anchorEl);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const { user } = useSelector((state: RootState) => state.auth);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -166,7 +167,7 @@ const NavigtationDrawer: React.FC<{ children: React.ReactNode }> = ({
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem>نام کاربری</MenuItem>
+      <MenuItem>{user?.username}</MenuItem>
       <MenuItem onClick={handleLogout}>خروج</MenuItem>
     </Menu>
   );
