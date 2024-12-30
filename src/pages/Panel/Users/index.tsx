@@ -10,6 +10,9 @@ import {
   Paper,
   Button,
 } from "@mui/material";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { changeToJalali } from "@/utils/dateAndTime";
 
 interface User {
   id: string;
@@ -21,6 +24,8 @@ interface User {
 
 const Users: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
+
+  const currentUser = useSelector((state: RootState) => state.auth.user);
 
   const fetchUsers = async () => {
     try {
@@ -63,16 +68,18 @@ const Users: React.FC = () => {
               <TableCell>{user.id}</TableCell>
               <TableCell>{user.username}</TableCell>
               <TableCell>{user.email}</TableCell>
-              <TableCell>{new Date(user.createdAt).toLocaleString()}</TableCell>
-              <TableCell>{new Date(user.updatedAt).toLocaleString()}</TableCell>
+              <TableCell dir='ltr'>{changeToJalali(user.createdAt)}</TableCell>
+              <TableCell dir='ltr'>{changeToJalali(user.updatedAt)}</TableCell>
               <TableCell>
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  onClick={() => deleteUser(user.id)}
-                >
-                  Delete
-                </Button>
+                {currentUser?.id !== user.id && (
+                  <Button
+                    variant='contained'
+                    color='secondary'
+                    onClick={() => deleteUser(user.id)}
+                  >
+                    Delete
+                  </Button>
+                )}
               </TableCell>
             </TableRow>
           ))}
