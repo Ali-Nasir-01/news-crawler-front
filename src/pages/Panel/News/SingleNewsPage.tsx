@@ -9,6 +9,7 @@ import {
   CardMedia,
   CardContent,
 } from "@mui/material";
+import { changeToJalali } from "@/utils/dateAndTime";
 
 interface News {
   id: string;
@@ -19,6 +20,7 @@ interface News {
   category: string;
   agency: string;
   publishDate: string;
+  link: string;
 }
 
 const SingleNewsPage: React.FC = () => {
@@ -45,7 +47,7 @@ const SingleNewsPage: React.FC = () => {
   return (
     <Container>
       <Typography variant='h3' gutterBottom>
-        {news.title}
+        <a href={news.link}>{news.title}</a>
       </Typography>
       <Typography variant='h5' gutterBottom>
         {news.subtitle}
@@ -76,11 +78,13 @@ const SingleNewsPage: React.FC = () => {
           <Card>
             <CardContent>
               <Typography variant='subtitle1'>
-                Category: {news.category}
+                دسته‌بندی: {news.category}
               </Typography>
-              <Typography variant='subtitle1'>Agency: {news.agency}</Typography>
               <Typography variant='subtitle1'>
-                Published on: {new Date(news.publishDate).toLocaleDateString()}
+                خبرگزاری: {news.agency}
+              </Typography>
+              <Typography variant='subtitle1'>
+                {changeToJalali(news.publishDate, "YYYY/M/DD")}
               </Typography>
             </CardContent>
           </Card>
