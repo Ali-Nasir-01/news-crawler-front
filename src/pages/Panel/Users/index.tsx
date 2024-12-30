@@ -77,7 +77,7 @@ const Users: React.FC = () => {
                     color='error'
                     onClick={() => deleteUser(user.id)}
                   >
-                    Delete
+                    حذف
                   </Button>
                 )}
               </TableCell>
