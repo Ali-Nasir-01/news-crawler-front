@@ -74,7 +74,7 @@ const Users: React.FC = () => {
                 {currentUser?.id !== user.id && (
                   <Button
                     variant='contained'
-                    color='secondary'
+                    color='error'
                     onClick={() => deleteUser(user.id)}
                   >
                     Delete
