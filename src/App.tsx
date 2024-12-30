@@ -13,6 +13,7 @@ import NewsPage from "./pages/Panel/News";
 import axiosInstance from "./config/axiosInterceptor"; // Import the axios instance
 import RegisterPage from "./pages/auth/RegisterPage";
 import UsersPage from "./pages/Panel/Users";
+import SingleNewsPage from "./pages/Panel/News/SingleNewsPage";
 
 const App: React.FC = () => {
   React.useEffect(() => {
@@ -67,6 +68,14 @@ const App: React.FC = () => {
           element={
             <DefaultLayout>
               <NewsPage />
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path='/panel/news/:id'
+          element={
+            <DefaultLayout>
+              <SingleNewsPage />
             </DefaultLayout>
           }
         />
